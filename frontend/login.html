@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="Banner">
+        <img src="logo.png">
+        <div class="ConteudoBanner">
+            <button onclick="inicio()">INÍCIO</button>
+            <button onclick="minigames()">MINIGAMES</button>
+            <button onclick="quiz()">QUIZ</button>
+            <button onclick="saibamais()">SAIBA MAIS</button>
+            <button onclick="login()">LOGIN</button>
+        </div>
+    </div>
+
+    <div class="Meio Inicio">
+        <div class="ConteudoMeio">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <label for="loginEmail">Email:</label><br>
+                <input type="text" id="loginEmail" name="email" required><br>
+                <label for="loginPassword">Senha:</label><br>
+                <input type="password" id="loginPassword" name="password" required><br><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+    <div class="Meio Inicio">
+        <div class="ConteudoMeio">
+            <h1>Não possui conta?<br>Cadastre-se</h1>
+            <form id="signupForm">
+                <label for="signupEmail">Email:</label><br>
+                <input type="text" id="signupEmail" name="email" required><br>
+                <label for="signupNome">Nome:</label><br>
+                <input type="text" id="signupNome" name="nome" required><br>
+                <label for="signupPassword">Senha:</label><br>
+                <input type="password" id="signupPassword" name="password" required><br><br>
+                <input type="submit" value="Cadastre-se">
+            </form>
+        </div>
+    </div>
+    <script>
+            function inicio() {
+                window.location.href = "index.html";
+            }
+            function minigames() {
+                window.location.href = "minigames.html";
+            }
+            function quiz() {
+                window.location.href = "quiz.html";
+            }
+            function saibamais() {
+                window.location.href = "saibamais.html";
+            }
+            function login() {
+                window.location.href = "login.html";
+            }
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Função para definir um cookie
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function createLoginCookie(email, password) {
+                setCookie("userEmail", email, 7);  // Cookie para o e-mail do usuário (expira em 7 dias)
+                setCookie("userPassword", password, 7);  // Cookie para a senha do usuário (expira em 7 dias)
+            }
+
+            // Função para lidar com o login
+            function handleLogin(event) {
+                event.preventDefault();  // Impede o envio padrão do formulário
+
+                const email = document.getElementById("loginEmail").value;
+                const password = document.getElementById("loginPassword").value;
+
+                const loginData = {
+                    email: email,
+                    password: password
+                };
+
+                fetch("http://localhost:8080/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(loginData)
+                })
+                .then(response => {
+                    const contentType = response.headers.get("content-type");
+                    if (response.ok) {
+                        createLoginCookie(email, password);
+                        if (contentType && contentType.includes("application/json")) {
+                            return response.json();
+                        } else {
+                            return response.text();
+                        }
+                    } else {
+                        if (contentType && contentType.includes("application/json")) {
+                            return response.json().then(error => {
+                                throw new Error(error.message || 'E-mail ou senha inválidos.');
+                            });
+                        } else {
+                            return response.text().then(errorText => {
+                                throw new Error(errorText || 'E-mail ou senha inválidos.');
+                            });
+                        }
+                    }
+                })
+                .then(data => {
+                    if (typeof data === "string") {
+                        alert(data);  // Se a resposta for texto
+                    } else {
+                        alert(JSON.stringify(data));  // Se a resposta for JSON
+                    }
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            }
+
+        // Função para lidar com o cadastro
+        function handleSignup(event) {
+            event.preventDefault();  // Impede o envio padrão do formulário
+
+            const email = document.getElementById("signupEmail").value;
+            const nome = document.getElementById("signupNome").value || null; // Permite valor nulo
+            const password = document.getElementById("signupPassword").value;
+
+            console.log("Nome:", nome); // Verifica se o valor do nome está correto
+
+            const signupData = {
+                email: email,
+                name: nome,  // Certifique-se de usar "name" para corresponder ao campo no DTO
+                password: password
+            };
+
+            console.log("Dados do cadastro:", JSON.stringify(signupData)); // Verifica os dados antes de enviar
+
+            fetch("http://localhost:8080/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(signupData)
+            })
+            .then(response => {
+                const contentType = response.headers.get("content-type");
+                if (response.ok) {
+                    if (contentType && contentType.includes("application/json")) {
+                        return response.json();
+                    } else {
+                        return response.text();
+                    }
+                } else {
+                    if (contentType && contentType.includes("application/json")) {
+                        return response.json().then(error => {
+                            throw new Error(error.message || 'Erro no cadastro.');
+                        });
+                    } else {
+                        return response.text().then(errorText => {
+                            throw new Error(errorText || 'Erro no cadastro.');
+                        });
+                    }
+                }
+            })
+            .then(data => {
+                if (typeof data === "string") {
+                    alert(data);  // Se a resposta for texto
+                } else {
+                    alert(JSON.stringify(data));  // Se a resposta for JSON
+                }
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+        }
+
+        // Associando os eventos corretamente
+        document.getElementById("loginForm").addEventListener("submit", handleLogin);
+        document.getElementById("signupForm").addEventListener("submit", handleSignup);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image:url(fundo.png);
+   
+    background-size: 100% auto;
+}
+.Banner {
+    background-color:#3b8b37;
+    box-shadow: 0 0 20px #3b8b37;
+    padding: 1em 0;
+    display:flex;
+    align-items:center;
+}
+.ConteudoBanner {
+    margin-left: 32.5%;
+}
+.ConteudoBanner button {
+    text-decoration: underline;
+    color:#e6bf2f;
+    margin-right: 7em;
+    font-size: 125%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.Meio {
+    margin-right:33.33%;
+    margin-left:33.33%;
+    text-align: center;
+    background-color:#3b8b37;
+    border-radius: 15px;    
+    outline: 2px solid #e6bf2f;
+}
+.ConteudoMeio {
+    color:#e6bf2f;
+}
+.ConteudoMeio input {
+    border: 1px solid #e6bf2f;
+}
+.Inicio {
+    margin-top: 4.16%;
+}
+.SaibaMais {
+    margin-top: 4.16%;
+    padding-bottom: 0.16%;
+    padding-left: 0.32%;
+    padding-right: 0.32%;
+}
+.Botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Botoes Button {
+    margin-left:1.6%;
+    background-color: #3b8b37;
+    outline:2px solid #e6bf2f;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    color:#e6bf2f;
+    padding: 0.3% 2%;
+
+    text-decoration: underline;
+}
+.quizContainer {
+    width: 25%;
+    border-radius: 30px;
+    outline: 2px solid #e6bf2f;
+    height: 62%;
+    position: absolute;
+    left: 35.9%;
+    top: 25.2%;
+    z-index: 9;
+    margin: 30px;
+    background: #3b8b37;
+    color: #e6bf2f;
+    text-align: center;
+    overflow-y: auto;
+    padding: 20px;
+}
+.quizBotao {
+    position: absolute;
+    top: 28.2%;
+    left: 61.4%;
+    z-index: 10;
+    align-items: center;
+}
+.quizBotao button {
+    transform: scale(1.5);
+    font-weight: bold;
+    background-color: #e6bf2f;
+    outline: 2px solid #3b8b37;
+    border-radius: 30px;
+    padding: 80% 115%;
+    border: none;
+    cursor: pointer;
+    color:#3b8b37;
+}
+.pergunta button {
+    background-color: #3b8b37;
+}
+.pergunta {
+    margin-bottom: 20px;
+}
+.resposta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.quizContainer::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.quizContainer::-webkit-scrollbar-thumb {
+    background-color: #357c31;
+    border-radius: 10px;
+}
+
+.quizContainer::-webkit-scrollbar-track {
+    background: #e6bf2f;
+    border-radius: 10px;
+}
+
+.quizContainer::-webkit-scrollbar-thumb:hover {
+    background: #2d682a;
+}
+
+.jogoContainer {
+    width: 25%;
+    border-radius: 30px;
+    outline: 2px solid #e6bf2f;
+    height: 62%;
+    position: absolute;
+    left: 35.9%;
+    top: 25.2%;
+    z-index: 9;
+    margin: 30px;
+    color: #e6bf2f;
+    text-align: center;
+    padding: 20px;
+    background-image: url(imagemparque.jpg);
+    background-size: cover;
+}
+.jogoBotao {
+    left: 63.35%;
+}
+.lixo {
+    position: absolute;
+    background-image: url(lixo.png);
+    width: 4%;
+    height: 5%;
+    z-index: 9;
+    align-items: baseline;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.lixeira {
+    cursor: pointer;
+    position: absolute;
+    background-image: url(lixeira.png);
+    width: 4.4%;
+    height: 12%;
+    left: 48.9%;
+    top: 80%;
+    z-index: 9;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.pontos {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    color: #c7a428;
+    text-align: center;
+    text-shadow: 1px 0px #8a721a;
+    z-index: 10;
+}
+.fim {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 180%;
+}
